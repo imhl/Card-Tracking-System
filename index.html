@@ -17,8 +17,6 @@
                 var staffname = $("#staff").val();
                 var mode = $("#mode").val();
                 var qrcode = $("#result").html();
-                var str = "staffselect=" + staffname + "&modeselect=" + mode + "&qrcode=" + qrcode;
-
                 var request;
                 if (staffname != "" && mode != "" && qrcode != "") {
                     request = $.ajax({
