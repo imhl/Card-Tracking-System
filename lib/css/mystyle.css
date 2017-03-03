@@ -96,3 +96,12 @@ li a{
     padding:0;
 }
 
+#errbox{
+    display:none;
+}
+
+#result{
+    color:green;
+    font-weight:bold;
+    font-size:13pt;
+}

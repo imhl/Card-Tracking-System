@@ -10,7 +10,32 @@
         <script type="text/javascript" src="lib/js/webqr.js"></script>
         <script type="text/javascript" src="lib/js/llqrcode.js"></script>
         <link rel="stylesheet" type="text/css" href="lib/css/mystyle.css">
+
+        <script>
+            function press() {
+
+                var staffname = $("#staff").val();
+                var mode = $("#mode").val();
+                var qrcode = $("#result").html();
+                var str = "staffselect=" + staffname + "&modeselect=" + mode + "&qrcode=" + qrcode;
+
+                var request;
+                if (staffname != "" && mode != "" && qrcode != "") {
+                    request = $.ajax({
+                        url: "https://script.google.com/macros/s/AKfycbx--htt3FnPijWucM5l1qkGsOic4k-RDmbNhdO7EVNjVdoxBeKb/exec",
+                        type: "post",
+                        data: {"Name": staffname, "Mode": mode, "QR Code": qrcode}
+                    });
+
+                    alert("Entry Inserted");
+                    location.reload();
+                }
+                document.getElementById("errbox").style.display = "block";
+
+            }
+        </script>
     </head>
+
     <body>
         <div class="container">
             <div class="page-header">
@@ -19,16 +44,22 @@
             <img src="lib/img/UniSIM.gif" alt="Responsive Image">
             <p></p><p></p>
             <div class="row">
-                <div class="col-md-4">
-                    <form name="form1" method="post">
+                <div class="col-md-4">                    
+                    <div class="alert alert-danger" role="alert" id="errbox">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        Please check your inputs....
+                    </div>
+                    <p><p><p><p>
+                    <form id="form1" method="post">
                         <div class="form-group">
                             <label for="staffname">Staff Name: </label>
-                            <select class="form-control" required>
+                            <select class="form-control" required id="staff" name="staffselect">
                                 <option value=""></option>
                                 <option value="Aan">Alan</option>
                                 <option value="He Jiang">He Jiang</option>
                                 <option value="Rosly">Rosly</option>
-                                <option value="Fazil">Fazil</option>
+                                <option value="Fazil" >Fazil</option>
                                 <option value="Siti">Siti</option>
                                 <option value="Deryk">Deryk</option>
                                 <option value="Yiu">Yiu</option>
@@ -37,9 +68,9 @@
                         </div>
                         <div class="form-group">
                             <label for="mode">Mode</label>
-                            <select class="form-control" required>
-                                <option></option>
-                                <option value="Issue">Issue Card</option>
+                            <select class="form-control" id="mode" required name="modeselect">
+                                <option value=""></option>
+                                <option value="Issue" >Issue Card</option>
                                 <option value="Return">Return Card</option>
                             </select>
                         </div>
@@ -67,7 +98,7 @@
                             <p>
 
                         </div>
-                        <button type="button" class="btn btn-primary">Submit</button>&nbsp;&nbsp;<button type="reset" class="btn btn-danger">Reset</button>
+                        <button type="button" id="submitbtn" class="btn btn-primary" onclick="press()">Submit</button>&nbsp;&nbsp;<button type="reset" class="btn btn-danger">Reset</button>
                     </form>
                     <canvas id="qr-canvas" width="800" height="600"></canvas>
                     <script type="text/javascript">load();</script>
