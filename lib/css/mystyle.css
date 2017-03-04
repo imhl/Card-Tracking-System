@@ -96,7 +96,7 @@ li a{
     padding:0;
 }
 
-#errbox{
+#errbox, #successbox{
     display:none;
 }
 
