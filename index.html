@@ -18,7 +18,7 @@
                 var mode = $("#mode").val();
                 var qrcode = $("#result").html();
                 var request;
-                if (staffname != "" && mode != "" && qrcode != "") {
+                if (staffname != "" && mode != "" && qrcode != "" && qrcode!="scanning.....") {
                     //disable button
                     $("#submitbtn").attr("disabled","disabled");
                     $("#clearbtn").attr("disabled","disabled");
