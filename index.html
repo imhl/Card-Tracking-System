@@ -19,17 +19,31 @@
                 var qrcode = $("#result").html();
                 var request;
                 if (staffname != "" && mode != "" && qrcode != "") {
+                    //disable button
+                    $("#submitbtn").attr("disabled","disabled");
+                    $("#clearbtn").attr("disabled","disabled");
+                    
                     request = $.ajax({
-                        url: "xxx",
+                        url: "....",
                         type: "post",
                         data: {"Name": staffname, "Mode": mode, "QR Code": qrcode}
                     });
 
-                    alert("Entry Inserted");
-                    location.reload();
+                    document.getElementById("successbox").style.display="block";
+                    document.getElementById("errbox").style.display="none";
+                    setTimeout(function(){
+                        location.reload();
+                    },950);                    
+                } else {
+                    document.getElementById("errbox").style.display = "block";                   
                 }
-                document.getElementById("errbox").style.display = "block";
-
+            }
+            
+            function clearField(){
+                $("#staff").val("");
+                $("#mode").val("");
+                $("#result").html("");
+                document.getElementById("errbox").style.display = "none";
             }
         </script>
     </head>
@@ -37,7 +51,7 @@
     <body>
         <div class="container">
             <div class="page-header">
-                <h2>AF Pass Card Tracking System</h2>
+                <h2>AF Access Pass Card Tracking System</h2>
             </div>
             <img src="lib/img/UniSIM.gif" alt="Responsive Image">
             <p></p><p></p>
@@ -47,6 +61,11 @@
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                         <span class="sr-only">Error:</span>
                         Please check your inputs....
+                    </div> 
+                    <div class="alert alert-success" role="alert" id="successbox">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        <span class="sr-only">Success:</span>
+                       You have successfully submitted the entry.....
                     </div>
                     <p><p><p><p>
                     <form id="form1" method="post">
@@ -54,7 +73,7 @@
                             <label for="staffname">Staff Name: </label>
                             <select class="form-control" required id="staff" name="staffselect">
                                 <option value=""></option>
-                                <option value="Aan">Alan</option>
+                                <option value="Alan">Alan</option>
                                 <option value="He Jiang">He Jiang</option>
                                 <option value="Rosly">Rosly</option>
                                 <option value="Fazil" >Fazil</option>
@@ -62,10 +81,10 @@
                                 <option value="Deryk">Deryk</option>
                                 <option value="Yiu">Yiu</option>
                                 <option value="Shirley">Shirley</option>
-                            </select>
+                            </select>                            
                         </div>
                         <div class="form-group">
-                            <label for="mode">Mode</label>
+                            <label for="mode">Mode:</label>
                             <select class="form-control" id="mode" required name="modeselect">
                                 <option value=""></option>
                                 <option value="Issue" >Issue Card</option>
@@ -96,7 +115,7 @@
                             <p>
 
                         </div>
-                        <button type="button" id="submitbtn" class="btn btn-primary" onclick="press()">Submit</button>&nbsp;&nbsp;<button type="reset" class="btn btn-danger">Reset</button>
+                        <button type="button" id="submitbtn" class="btn btn-success" onclick="press()">Submit</button>&nbsp;&nbsp;<button type="button" id="clearbtn" class="btn btn-primary" onclick="clearField()">Clear Fields</button>
                     </form>
                     <canvas id="qr-canvas" width="800" height="600"></canvas>
                     <script type="text/javascript">load();</script>
